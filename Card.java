@@ -14,8 +14,10 @@ public class Card{
    public static final int QUEEN = 12;
    public static final int JACK = 11;
    public static final int ACE = 1;
-   private int suit;
-   private int rank;
+   private int suit;                                                 // the Card's suit
+   private int rank;                                                 // the Card's rank
+   private String imgAddress;                                        // the address for the Card's image
+   
       
    /**
       The constructor creates a Card object with a supplied suit and rank.
@@ -25,6 +27,7 @@ public class Card{
    public Card(int mySuit, int myRank){
       suit = mySuit;                                                 // Initialize the rank
       rank = myRank;                                                 // Initialize the suit
+      imgAddress = addressString();                                  // Initialize the image address
    }
    
    /**
@@ -44,6 +47,14 @@ public class Card{
    }
    
    /**
+      The getImgAddress method returns the address of the Card's image.
+      @return The Card's image address.
+   */
+   public String getImgAddress(){
+      return imgAddress;
+   }
+   
+   /**
       The toString method transforms the properties of the card object to the respective Strings.
       @return A string representing the rank and suit of the card.
    */
@@ -56,6 +67,28 @@ public class Card{
       for(int index = 0; index < ranks.length; index++){                         // Rank test
          if(rank == (index + 1))
             result = ranks[index] + " of ";
+      }     
+      for(int index = 0; index < suits.length; index++){                         // Suit test
+         if(suit == (index + 1))
+            result += suits[index];
+      }
+                     
+      return result;
+   }
+   
+   /**
+      The addressString method determines the address of the Card's image in the CardPics folder.
+      @return The address of the Card's image.
+   */
+   public String addressString(){
+      String result = "";
+      String[] ranks = {"ace", "2", "3", "4", "5", "6", "7",                     // Rank string array 
+                        "8", "9", "10", "jack", "queen", "king"};                                  
+      String [] suits = {"s", "c", "h", "d"};                                    // Suit string array
+      
+      for(int index = 0; index < ranks.length; index++){                         // Rank test
+         if(rank == (index + 1))
+            result = "CardPics\\" + ranks[index];
       }     
       for(int index = 0; index < suits.length; index++){                         // Suit test
          if(suit == (index + 1))

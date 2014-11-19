@@ -6,49 +6,55 @@
 
 import javax.swing.*;                                                         // Needed for the Swing classes
 import java.awt.*;                                                            // Needed for BorderLayout class
+import java.awt.event.*;                                                      // Neeeded for ActionEvent class
 
-public class WarGUI extends JFrame{
-   private final int WINDOW_WIDTH = 500;
-   private final int WINDOW_HEIGHT = 400;
+public class WarGUI extends JFrame{   
+   private WarGame warGame;
+   private JPanel titlePanel, gamePanel, outcomePanel, buttonPanel;
+   private JLabel title, game, outcome;
+   private JButton addUser, play, addComp;    
    
    /**
-      Constructor
+      Constructor, constructs the GUI for the card game War.
    */
    public WarGUI(){
-      setTitle("A Simulated Card Game of War");
-      setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      setLayout(new BorderLayout());
+      setLayout(new GridLayout(4, 1));                                        // Create new 4 x 1 grid
+      warGame = new WarGame();                                                // Construct new game of War
       
-      JPanel top = new JPanel();
-      JPanel left = new JPanel();
-      JPanel right = new JPanel();      
-      JPanel bottom = new JPanel();      
+      titlePanel = new JPanel();
+      gamePanel = new JPanel(new GridLayout(2, 4));
+      outcomePanel = new JPanel();
+      buttonPanel = new JPanel(new GridLayout(1, 3));
       
-      JLabel title = new JLabel("War");
-      JLabel userCard = new JLabel("User's card");
-      JLabel compCard = new JLabel("Computer's card");
-      JLabel nums = new JLabel("Number of cards");
+      title = new JLabel("A Simulated Card Game of War");
+      title.setFont(new Font("Times New Roman", Font.BOLD, 18));
+      titlePanel.add(title);
       
-      top.setBorder(BorderFactory.createLineBorder(Color.black));
-      left.setBorder(BorderFactory.createLineBorder(Color.black));
-      right.setBorder(BorderFactory.createLineBorder(Color.black));
-      bottom.setBorder(BorderFactory.createLineBorder(Color.black));
+      //gamePanel, TBD
       
-      top.add(title);
-      left.add(userCard);
-      right.add(compCard);
-      bottom.add(nums);      
+      outcome = new JLabel("In Progress");
+      outcome.setFont(new Font("Times New Roman", Font.BOLD, 14));
+      outcomePanel.add(outcome);
       
-      add(top, BorderLayout.NORTH);
-      add(left, BorderLayout.EAST);
-      add(right, BorderLayout.WEST);
-      add(bottom, BorderLayout.SOUTH);      
+      addUser = new JButton("Add to user's deck");
+      play = new JButton("Play");
+      addComp = new JButton("Add to computer's deck");
       
-      setVisible(true);
-   }
+      buttonPanel.add(addUser);
+      buttonPanel.add(play);
+      buttonPanel.add(addComp);
+      
+      add(titlePanel);
+      add(gamePanel);
+      add(outcomePanel);
+      add(buttonPanel);
+   }   
    
+   // Tester
    public static void main(String [] args){
-      new WarGUI();
+      JFrame warGUI = new WarGUI();
+      warGUI.setSize(600, 600);
+      warGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      warGUI.setVisible(true);
    }
 }
