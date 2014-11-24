@@ -180,9 +180,9 @@ public class WarGUI extends JFrame{
             warGame.isWar();                                               // Play war round
             setAll();                                                      // Set text images
             countWar = 0;                                                  // Increment
-            gameOver();                                                    // Check for empty hands
             war.setVisible(false);                                         // Hide "War" button
             play.setEnabled(true);                                         // Enable "Play" button
+            gameOver();                                                    // Check for empty hands
          }// war cards played
          pack();
       }// actionPerformed method
