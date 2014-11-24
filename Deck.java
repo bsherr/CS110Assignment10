@@ -19,21 +19,12 @@ public class Deck{
    }
    
    /**
-      Alternate Constructor, constructs an empty deck if supplied boolean is true.
-      @param empty The boolean to determine whether or not to construct a deck.
-   */
-   public Deck(boolean empty){
-      if(empty)
-         deck = new ArrayList<Card> ();
-   }
-   
-   /**
       The newDeck method creates a standard 52 card deck of Card objects.
    */
    public void newDeck(){     
       deck = new ArrayList<Card> (NUM_CARDS);
       for(int suit = Card.SPADES; suit <= Card.DIAMONDS; suit++){
-         for(int rank = Card.ACE; rank <= Card.KING; rank++){
+         for(int rank = 2; rank <= Card.ACE; rank++){
             deck.add(new Card(suit, rank));
          }// rank loop
       }// suit loop
@@ -52,39 +43,9 @@ public class Deck{
       }
    }
    
-   /** 
-      The divide method divides the deck amongst the two players.
-      @param d1 The supplied deck.
-      @param player A boolean indicating the player's deck, true for user otherwise false.
-      @param numCards The desired number of cards in each player's deck.
-      @return         The newly apportioned deck of realistic size.
-   */
-   public Deck divide(Deck d1, boolean player, double numCards){
-      int count = 0;
-      Deck deck = new Deck(true);
-      if(player){
-         int index = 0;
-         while(count < numCards && index < d1.size()){
-            deck.add(d1.get(index));
-            count++;
-            index = index + 2;
-         }
-      }// create the user's deck
-      else{
-         int index = 1;
-         while(count < numCards && index < d1.size()){
-            deck.add(d1.get(index));
-            count++;
-            index = index + 2;
-         }
-      }// create the computer's deck
-      
-      return deck;
-   }
-   
    /**
       The displayAll method prints each card in the deck, provides ability to validate successful deck
-      creation and succeesful shuffle.
+      creation and successful shuffle.
    */
    public void displayAll(){
       for(int index = 0; index < deck.size(); index++)
@@ -109,12 +70,18 @@ public class Deck{
    }
      
    /**
-      The remove method removes a Card at the specified index.
-      @param index The index within the deck.
-      @return      The card at index.
+      The remove method removes a Card at the top of the deck.
+      @return      The card at the top of the deck.
    */
-   public Card remove(int index){
-      return deck.remove(index);
+   public Card remove(){
+      return deck.remove(0);
+   }
+   
+   /**
+      The emptyDeck method clears all cards from the deck.
+   */
+   public void emptyDeck(){
+      deck.clear();
    }
    
    /**
@@ -130,6 +97,15 @@ public class Deck{
       @return A boolean indicating if the deck is empty (false) or not (true).
    */
    public boolean isEmpty(){
-      return deck.isEmpty();
+      return (deck.size() == 0);
+   }
+   
+   // Tester
+   public static void main(String [] args){
+      Deck d1 = new Deck();
+      d1.displayAll();
+      d1.emptyDeck();
+      System.out.println("------");
+      d1.displayAll();
    }
 }

@@ -10,15 +10,14 @@ public class Card{
    public static final int CLUBS = 2;                                // the second set of 13 cards                            
    public static final int HEARTS = 3;                               // the third set of 13 cards
    public static final int DIAMONDS = 4;                             // the fourth set of 13 cards
-   public static final int KING = 13;
-   public static final int QUEEN = 12;
-   public static final int JACK = 11;
-   public static final int ACE = 1;
+   public static final int ACE = 14;                                 // constant for aces
+   public static final int KING = 13;                                // constant for kings
+   public static final int QUEEN = 12;                               // constant for queens
+   public static final int JACK = 11;                                // constant for jacks
    private int suit;                                                 // the Card's suit
    private int rank;                                                 // the Card's rank
    private String imgAddress;                                        // the address for the Card's image
    
-      
    /**
       The constructor creates a Card object with a supplied suit and rank.
       @param mySuit The suit of the card.
@@ -60,19 +59,18 @@ public class Card{
    */
    public String toString(){
       String result = "";
-      String[] ranks = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven",   // Rank string array 
-                        "Eight", "Nine", "Ten", "Jack", "Queen", "King"};                                  
+      String[] ranks = {"Two", "Three", "Four", "Five", "Six", "Seven", "Eight", // Rank string array 
+                        "Nine", "Ten", "Jack", "Queen", "King", "Ace"};                                  
       String [] suits = {"Spades", "Clubs", "Hearts", "Diamonds"};               // Suit string array
       
       for(int index = 0; index < ranks.length; index++){                         // Rank test
-         if(rank == (index + 1))
+         if(rank == (index + 2))
             result = ranks[index] + " of ";
       }     
       for(int index = 0; index < suits.length; index++){                         // Suit test
          if(suit == (index + 1))
             result += suits[index];
-      }
-                     
+      }             
       return result;
    }
    
@@ -82,19 +80,18 @@ public class Card{
    */
    public String addressString(){
       String result = "";
-      String[] ranks = {"ace", "2", "3", "4", "5", "6", "7",                     // Rank string array 
-                        "8", "9", "10", "jack", "queen", "king"};                                  
+      String[] ranks = {"2", "3", "4", "5", "6", "7", "8",                       // Rank string array 
+                        "9", "10", "jack", "queen", "king", "ace"};                                  
       String [] suits = {"s", "c", "h", "d"};                                    // Suit string array
       
       for(int index = 0; index < ranks.length; index++){                         // Rank test
-         if(rank == (index + 1))
+         if(rank == (index + 2))
             result = "CardPics\\" + ranks[index];
       }     
       for(int index = 0; index < suits.length; index++){                         // Suit test
          if(suit == (index + 1))
-            result += suits[index];
-      }
-                     
+            result += suits[index] + ".jpg";
+      }           
       return result;
    }
    
