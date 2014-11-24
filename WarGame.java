@@ -4,20 +4,20 @@
 */
 
 public class WarGame{
-   private Deck userDeck;                                            // The user's deck
-   private Deck compDeck;                                            // The computer's deck
-   private Deck newCards;                                            // The cards played each round
-   private Card userCard;                                            // The user's played card
-   private Card compCard;                                            // The computer's played card
-   private boolean war;                                              // Presence of war
+   private Deck userDeck;                                         // The user's deck
+   private Deck compDeck;                                         // The computer's deck
+   private Deck newCards;                                         // The cards played each round
+   private Card userCard;                                         // The user's played card
+   private Card compCard;                                         // The computer's played card
+   private boolean war;                                           // Presence of war
    
    /**
       Constructor, constructs and shuffles the starting deck and allocates the desired amounts of cards to both 
       the user and the computer.
    */
    public WarGame(){
-      userDeck = new CardPile();                                     // Allocate the user's deck
-      compDeck = new CardPile();                                     // Allocate the computer's deck
+      userDeck = new CardPile();                                  // Allocate the user's deck
+      compDeck = new CardPile();                                  // Allocate the computer's deck
    }
    
    /**
@@ -32,10 +32,11 @@ public class WarGame{
       newCards.add(userCard);                                     // Accumulate cards
       newCards.add(compCard);                                     // Accumulate cards
       
-      if(userCard.equals(compCard))                               // Set war flag, if necessary
-         isWar();
-      
-      addToWinner(newCards);    
+      if(userCard.equals(compCard)){                              // Set war flag, if necessary
+         war = true;
+      }
+      else                                                        // Otherwise, adjust player's hands
+         addToWinner(newCards);    
    }
    
    /**
@@ -43,34 +44,36 @@ public class WarGame{
    */
    public void isWar(){
       while(userCard.equals(compCard)){
-         Card userCard2 = userDeck.remove();                         // User's face down card
-         Card compCard2 = compDeck.remove();                         // Computer's face down card
-         newCards.add(userCard2);                                    // Accumulate cards                             
-         newCards.add(compCard2);                                    // Accumulate cards
+         Card userCard2 = userDeck.remove();                      // User's face down card
+         Card compCard2 = compDeck.remove();                      // Computer's face down card
+         newCards.add(userCard2);                                 // Accumulate cards                             
+         newCards.add(compCard2);                                 // Accumulate cards
          if(userDeck.isEmpty() || compDeck.isEmpty())
             break;
             
-         userCard = userDeck.remove();                               // User's face up card
-         compCard = compDeck.remove();                               // Computer's face up card
-         newCards.add(userCard);                                     // Accumulate cards
-         newCards.add(compCard);                                     // Accumulate cards
+         userCard = userDeck.remove();                            // User's face up card
+         compCard = compDeck.remove();                            // Computer's face up card
+         newCards.add(userCard);                                  // Accumulate cards
+         newCards.add(compCard);                                  // Accumulate cards
          if(userDeck.isEmpty() || compDeck.isEmpty())
             break;
       }// loop for tie-breaker or war
+      addToWinner(newCards);
+      war = false;
    }
    
    /**
-      The addTo Winner method adds the cards from the round to the winner's deck.
+      The addToWinner method adds the cards from the round to the winner's deck.
       @param d1 The deck of cards accumulated during the round.
    */
    public void addToWinner(Deck d1){
-      userCard = newCards.get(newCards.size() - 2);                  // Retrieve user's last card
-      compCard = newCards.get(newCards.size() - 1);                  // Retrieve computer's last card
-      if(userCard.isGreater(compCard)){                              // User wins the round
+      userCard = newCards.get(newCards.size() - 2);               // Retrieve user's last card
+      compCard = newCards.get(newCards.size() - 1);               // Retrieve computer's last card
+      if(userCard.isGreater(compCard)){                           // User wins the round
          for(int i = 0; i < d1.size(); i++)
             userDeck.add(d1.get(i));
       }// user wins
-      else{                                                          // Computer wins the round
+      else{                                                       // Computer wins the round
          for(int i = 0; i < d1.size(); i++)
             compDeck.add(d1.get(i));
       }// computer wins
@@ -123,12 +126,12 @@ public class WarGame{
       if(userDeck.isEmpty())
          return "Game over, the computer wins!";
       else if(!userDeck.isEmpty() && !compDeck.isEmpty()){
-         if(userCard.isGreater(compCard))
-            return "The user wins!";
+         if(userCard.equals(compCard))
+            return "War!";
          else if(!userCard.isGreater(compCard))
             return "The computer wins!";
          else
-            return "War!";
+            return "The user wins!";
       }
       else
          return "Game over, the user wins!";
